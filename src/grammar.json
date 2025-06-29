@@ -9,22 +9,79 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "mako_expression"
           },
           {
             "type": "SYMBOL",
-            "name": "number"
+            "name": "mako_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "mako_comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "text"
           }
         ]
       }
     },
-    "identifier": {
+    "text": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+      "value": ".+"
     },
-    "number": {
+    "mako_expression": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "${"
+        },
+        {
+          "type": "FIELD",
+          "name": "code",
+          "content": {
+            "type": "SYMBOL",
+            "name": "python_code"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "mako_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<%!"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "python_code"
+        },
+        {
+          "type": "STRING",
+          "value": "%>"
+        }
+      ]
+    },
+    "mako_comment": {
       "type": "PATTERN",
-      "value": "\\d+"
+      "value": "##[^\\n]*"
+    },
+    "python_code": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": -1,
+        "content": {
+          "type": "PATTERN",
+          "value": "([^%]|%[^>])*"
+        }
+      }
     }
   },
   "extras": [

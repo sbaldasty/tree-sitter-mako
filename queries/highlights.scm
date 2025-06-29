@@ -1,3 +1,5 @@
-;; filepath: tree-sitter-mako/queries/highlights.scm
-(identifier) @variable
-(number) @number
+(mako_declaration
+  "<%!" @punctuation.special
+  (python_code) @injection.content
+  "%>" @punctuation.special)
+
