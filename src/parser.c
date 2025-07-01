@@ -12,7 +12,7 @@
 #define SYMBOL_COUNT 12
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 8
-#define EXTERNAL_TOKEN_COUNT 0
+#define EXTERNAL_TOKEN_COUNT 1
 #define FIELD_COUNT 1
 #define MAX_ALIAS_SEQUENCE_LENGTH 3
 #define MAX_RESERVED_WORD_SET_SIZE 0
@@ -159,125 +159,109 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
   eof = lexer->eof(lexer);
   switch (state) {
     case 0:
-      if (eof) ADVANCE(8);
+      if (eof) ADVANCE(7);
       if (lookahead == '#') ADVANCE(2);
       if (lookahead == '$') ADVANCE(5);
       if (lookahead == '%') ADVANCE(4);
       if (lookahead == '<') ADVANCE(3);
-      if (lookahead == '}') ADVANCE(17);
+      if (lookahead == '}') ADVANCE(16);
       if (('\t' <= lookahead && lookahead <= '\r') ||
           lookahead == ' ') SKIP(0);
       END_STATE();
     case 1:
-      if (lookahead == '!') ADVANCE(18);
+      if (lookahead == '!') ADVANCE(17);
       END_STATE();
     case 2:
-      if (lookahead == '#') ADVANCE(21);
+      if (lookahead == '#') ADVANCE(20);
       END_STATE();
     case 3:
       if (lookahead == '%') ADVANCE(1);
       END_STATE();
     case 4:
-      if (lookahead == '>') ADVANCE(20);
+      if (lookahead == '>') ADVANCE(19);
       END_STATE();
     case 5:
-      if (lookahead == '{') ADVANCE(15);
+      if (lookahead == '{') ADVANCE(14);
       END_STATE();
     case 6:
-      if (lookahead != 0 &&
-          lookahead != '>') ADVANCE(23);
+      if (eof) ADVANCE(7);
+      if (lookahead == '\n') SKIP(6);
+      if (lookahead == '#') ADVANCE(10);
+      if (lookahead == '$') ADVANCE(12);
+      if (lookahead == '<') ADVANCE(11);
+      if (('\t' <= lookahead && lookahead <= '\r') ||
+          lookahead == ' ') ADVANCE(9);
+      if (lookahead != 0) ADVANCE(13);
       END_STATE();
     case 7:
-      if (eof) ADVANCE(8);
-      if (lookahead == '\n') SKIP(7);
-      if (lookahead == '#') ADVANCE(11);
-      if (lookahead == '$') ADVANCE(13);
-      if (lookahead == '<') ADVANCE(12);
-      if (('\t' <= lookahead && lookahead <= '\r') ||
-          lookahead == ' ') ADVANCE(10);
-      if (lookahead != 0) ADVANCE(14);
+      ACCEPT_TOKEN(ts_builtin_sym_end);
       END_STATE();
     case 8:
-      ACCEPT_TOKEN(ts_builtin_sym_end);
+      ACCEPT_TOKEN(sym_text);
+      if (lookahead == '!') ADVANCE(18);
+      if (lookahead != 0 &&
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 9:
       ACCEPT_TOKEN(sym_text);
-      if (lookahead == '!') ADVANCE(19);
+      if (lookahead == '#') ADVANCE(10);
+      if (lookahead == '$') ADVANCE(12);
+      if (lookahead == '<') ADVANCE(11);
+      if (lookahead == '\t' ||
+          (0x0b <= lookahead && lookahead <= '\r') ||
+          lookahead == ' ') ADVANCE(9);
       if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
+          (lookahead < '\t' || '\r' < lookahead)) ADVANCE(13);
       END_STATE();
     case 10:
       ACCEPT_TOKEN(sym_text);
-      if (lookahead == '#') ADVANCE(11);
-      if (lookahead == '$') ADVANCE(13);
-      if (lookahead == '<') ADVANCE(12);
-      if (lookahead == '\t' ||
-          (0x0b <= lookahead && lookahead <= '\r') ||
-          lookahead == ' ') ADVANCE(10);
+      if (lookahead == '#') ADVANCE(13);
       if (lookahead != 0 &&
-          (lookahead < '\t' || '\r' < lookahead)) ADVANCE(14);
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 11:
       ACCEPT_TOKEN(sym_text);
-      if (lookahead == '#') ADVANCE(14);
+      if (lookahead == '%') ADVANCE(8);
       if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 12:
       ACCEPT_TOKEN(sym_text);
-      if (lookahead == '%') ADVANCE(9);
+      if (lookahead == '{') ADVANCE(15);
       if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 13:
       ACCEPT_TOKEN(sym_text);
-      if (lookahead == '{') ADVANCE(16);
       if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 14:
-      ACCEPT_TOKEN(sym_text);
-      if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
+      ACCEPT_TOKEN(anon_sym_DOLLAR_LBRACE);
       END_STATE();
     case 15:
       ACCEPT_TOKEN(anon_sym_DOLLAR_LBRACE);
+      if (lookahead != 0 &&
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 16:
-      ACCEPT_TOKEN(anon_sym_DOLLAR_LBRACE);
-      if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
+      ACCEPT_TOKEN(anon_sym_RBRACE);
       END_STATE();
     case 17:
-      ACCEPT_TOKEN(anon_sym_RBRACE);
+      ACCEPT_TOKEN(anon_sym_LT_PERCENT_BANG);
       END_STATE();
     case 18:
       ACCEPT_TOKEN(anon_sym_LT_PERCENT_BANG);
+      if (lookahead != 0 &&
+          lookahead != '\n') ADVANCE(13);
       END_STATE();
     case 19:
-      ACCEPT_TOKEN(anon_sym_LT_PERCENT_BANG);
-      if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(14);
-      END_STATE();
-    case 20:
       ACCEPT_TOKEN(anon_sym_PERCENT_GT);
       END_STATE();
-    case 21:
+    case 20:
       ACCEPT_TOKEN(sym_mako_comment);
       if (lookahead != 0 &&
-          lookahead != '\n') ADVANCE(21);
-      END_STATE();
-    case 22:
-      ACCEPT_TOKEN(sym_python_code);
-      if (lookahead == '%') ADVANCE(6);
-      if (('\t' <= lookahead && lookahead <= '\r') ||
-          lookahead == ' ') ADVANCE(22);
-      if (lookahead != 0) ADVANCE(23);
-      END_STATE();
-    case 23:
-      ACCEPT_TOKEN(sym_python_code);
-      if (lookahead == '%') ADVANCE(6);
-      if (lookahead != 0) ADVANCE(23);
+          lookahead != '\n') ADVANCE(20);
       END_STATE();
     default:
       return false;
@@ -285,14 +269,14 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
 }
 
 static const TSLexerMode ts_lex_modes[STATE_COUNT] = {
-  [0] = {.lex_state = 0},
-  [1] = {.lex_state = 7},
-  [2] = {.lex_state = 7},
-  [3] = {.lex_state = 7},
-  [4] = {.lex_state = 7},
-  [5] = {.lex_state = 7},
-  [6] = {.lex_state = 22},
-  [7] = {.lex_state = 22},
+  [0] = {.lex_state = 0, .external_lex_state = 1},
+  [1] = {.lex_state = 6},
+  [2] = {.lex_state = 6},
+  [3] = {.lex_state = 6},
+  [4] = {.lex_state = 6},
+  [5] = {.lex_state = 6},
+  [6] = {.lex_state = 0, .external_lex_state = 1},
+  [7] = {.lex_state = 0, .external_lex_state = 1},
   [8] = {.lex_state = 0},
   [9] = {.lex_state = 0},
   [10] = {.lex_state = 0},
@@ -306,6 +290,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_LT_PERCENT_BANG] = ACTIONS(1),
     [anon_sym_PERCENT_GT] = ACTIONS(1),
     [sym_mako_comment] = ACTIONS(1),
+    [sym_python_code] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_source_file] = STATE(8),
@@ -408,9 +393,29 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [42] = {.entry = {.count = 1, .reusable = true}}, SHIFT(5),
 };
 
+enum ts_external_scanner_symbol_identifiers {
+  ts_external_token_python_code = 0,
+};
+
+static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
+  [ts_external_token_python_code] = sym_python_code,
+};
+
+static const bool ts_external_scanner_states[2][EXTERNAL_TOKEN_COUNT] = {
+  [1] = {
+    [ts_external_token_python_code] = true,
+  },
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+void *tree_sitter_mako_external_scanner_create(void);
+void tree_sitter_mako_external_scanner_destroy(void *);
+bool tree_sitter_mako_external_scanner_scan(void *, TSLexer *, const bool *);
+unsigned tree_sitter_mako_external_scanner_serialize(void *, char *);
+void tree_sitter_mako_external_scanner_deserialize(void *, const char *, unsigned);
+
 #ifdef TREE_SITTER_HIDE_SYMBOLS
 #define TS_PUBLIC
 #elif defined(_WIN32)
@@ -446,6 +451,15 @@ TS_PUBLIC const TSLanguage *tree_sitter_mako(void) {
     .alias_sequences = &ts_alias_sequences[0][0],
     .lex_modes = (const void*)ts_lex_modes,
     .lex_fn = ts_lex,
+    .external_scanner = {
+      &ts_external_scanner_states[0][0],
+      ts_external_scanner_symbol_map,
+      tree_sitter_mako_external_scanner_create,
+      tree_sitter_mako_external_scanner_destroy,
+      tree_sitter_mako_external_scanner_scan,
+      tree_sitter_mako_external_scanner_serialize,
+      tree_sitter_mako_external_scanner_deserialize,
+    },
     .primary_state_ids = ts_primary_state_ids,
     .name = "mako",
     .max_reserved_word_set_size = 0,

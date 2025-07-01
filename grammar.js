@@ -13,6 +13,10 @@ module.exports = grammar({
 
   extras: $ => [/\s/],
 
+  externals: $ => [
+    $.python_code,
+  ],
+
   rules: {
     source_file: $ => repeat(choice(
       $.mako_expression,
@@ -35,10 +39,7 @@ module.exports = grammar({
       '%>'
     ),
 
-    mako_comment: _ => /##[^\n]*/,
-python_code: _ => token(prec(-1, /([^%]|%[^>])*/))
-	  //python_code: _ => token(choice(/[^%]+/))
-    //python_code: _ => /\n[^\n]*/ // /[^%{}<>]+/,  // placeholder - "raw with opaque contents
+    mako_comment: _ => /##[^\n]*/
   }
 });
 

@@ -71,17 +71,6 @@
     "mako_comment": {
       "type": "PATTERN",
       "value": "##[^\\n]*"
-    },
-    "python_code": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PREC",
-        "value": -1,
-        "content": {
-          "type": "PATTERN",
-          "value": "([^%]|%[^>])*"
-        }
-      }
     }
   },
   "extras": [
@@ -92,7 +81,12 @@
   ],
   "conflicts": [],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "python_code"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}
