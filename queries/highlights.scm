@@ -1,5 +1,11 @@
 (mako_declaration
-  "<%!" @punctuation.special
+  "<%!" @punctuation.bracket
   (python_code) @injection.content
-  "%>" @punctuation.special)
+  "%>" @punctuation.bracket)
 
+(mako_attribute name: (attribute_name) @attribute)
+(mako_attribute "=" @operator)
+(quoted_attribute_value) @string
+
+["<%block"] @punctuation.bracket
+["</%block>"] @punctuation.bracket

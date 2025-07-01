@@ -19,13 +19,14 @@ module.exports = grammar({
 
   rules: {
     source_file: $ => repeat(choice(
+      $.mako_block,
       $.mako_expression,
       $.mako_declaration,
       $.mako_comment,
       $.text,
     )),
 
-    text: _ => /.+/,
+    text: _ => token(prec(-1, /.+/)),
 
     mako_expression: $ => seq(
       '${',
@@ -39,7 +40,34 @@ module.exports = grammar({
       '%>'
     ),
 
-    mako_comment: _ => /##[^\n]*/
+    mako_block: $ => seq(
+      '<%block',
+      repeat($.mako_attribute),
+      '>',
+      repeat(choice(
+        $.text,
+        $.mako_comment
+      )),
+      '</%block>'
+    ),
+
+    mako_comment: _ => /##[^\n]*/,
+
+    mako_attribute: $ => seq(
+      field('name', $.attribute_name),
+      '=',
+      field('value', $.quoted_attribute_value)
+    ),
+    
+    attribute_name: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    
+    quoted_attribute_value: $ => choice(
+      seq('"', optional($.double_quoted_content), '"'),
+      seq("'", optional($.single_quoted_content), "'")
+    ),
+    
+    double_quoted_content: $ => /[^"]*/,
+    single_quoted_content: $ => /[^']*/,
   }
 });
 

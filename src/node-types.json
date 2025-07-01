@@ -1,5 +1,54 @@
 [
   {
+    "type": "mako_attribute",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "attribute_name",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted_attribute_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "mako_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "mako_attribute",
+          "named": true
+        },
+        {
+          "type": "mako_comment",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "mako_declaration",
     "named": true,
     "fields": {},
@@ -31,6 +80,25 @@
     }
   },
   {
+    "type": "quoted_attribute_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "double_quoted_content",
+          "named": true
+        },
+        {
+          "type": "single_quoted_content",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -39,6 +107,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "mako_block",
+          "named": true
+        },
         {
           "type": "mako_comment",
           "named": true
@@ -59,6 +131,10 @@
     }
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "${",
     "named": false
   },
@@ -67,8 +143,36 @@
     "named": false
   },
   {
+    "type": "'",
+    "named": false
+  },
+  {
     "type": "<%!",
     "named": false
+  },
+  {
+    "type": "<%block",
+    "named": false
+  },
+  {
+    "type": "</%block>",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": "attribute_name",
+    "named": true
+  },
+  {
+    "type": "double_quoted_content",
+    "named": true
   },
   {
     "type": "mako_comment",
@@ -76,6 +180,10 @@
   },
   {
     "type": "python_code",
+    "named": true
+  },
+  {
+    "type": "single_quoted_content",
     "named": true
   },
   {
