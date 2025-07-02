@@ -1,6 +1,6 @@
 [
   {
-    "type": "mako_attribute",
+    "type": "attribute",
     "named": true,
     "fields": {
       "name": {
@@ -8,7 +8,7 @@
         "required": true,
         "types": [
           {
-            "type": "attribute_name",
+            "type": "identifier",
             "named": true
           }
         ]
@@ -18,7 +18,7 @@
         "required": true,
         "types": [
           {
-            "type": "quoted_attribute_value",
+            "type": "string",
             "named": true
           }
         ]
@@ -34,7 +34,7 @@
       "required": false,
       "types": [
         {
-          "type": "mako_attribute",
+          "type": "attribute",
           "named": true
         },
         {
@@ -80,25 +80,6 @@
     }
   },
   {
-    "type": "quoted_attribute_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "double_quoted_content",
-          "named": true
-        },
-        {
-          "type": "single_quoted_content",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -129,6 +110,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "\"",
@@ -167,11 +153,7 @@
     "named": false
   },
   {
-    "type": "attribute_name",
-    "named": true
-  },
-  {
-    "type": "double_quoted_content",
+    "type": "identifier",
     "named": true
   },
   {
@@ -180,10 +162,6 @@
   },
   {
     "type": "python_code",
-    "named": true
-  },
-  {
-    "type": "single_quoted_content",
     "named": true
   },
   {

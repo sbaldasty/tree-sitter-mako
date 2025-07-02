@@ -3,9 +3,11 @@
   (python_code) @injection.content
   "%>" @punctuation.bracket)
 
-(mako_attribute name: (attribute_name) @attribute)
-(mako_attribute "=" @operator)
-(quoted_attribute_value) @string
+(attribute
+  name: (identifier) @attribute
+  "=" @operator)
+
+(string) @string
 
 ["<%block"] @punctuation.bracket
 ["</%block>"] @punctuation.bracket

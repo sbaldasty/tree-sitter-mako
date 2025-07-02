@@ -90,7 +90,7 @@
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
-            "name": "mako_attribute"
+            "name": "attribute"
           }
         },
         {
@@ -123,7 +123,7 @@
       "type": "PATTERN",
       "value": "##[^\\n]*"
     },
-    "mako_attribute": {
+    "attribute": {
       "type": "SEQ",
       "members": [
         {
@@ -131,7 +131,7 @@
           "name": "name",
           "content": {
             "type": "SYMBOL",
-            "name": "attribute_name"
+            "name": "identifier"
           }
         },
         {
@@ -143,16 +143,16 @@
           "name": "value",
           "content": {
             "type": "SYMBOL",
-            "name": "quoted_attribute_value"
+            "name": "string"
           }
         }
       ]
     },
-    "attribute_name": {
+    "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-Z_][a-zA-Z0-9_]*"
     },
-    "quoted_attribute_value": {
+    "string": {
       "type": "CHOICE",
       "members": [
         {
@@ -163,16 +163,11 @@
               "value": "\""
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "double_quoted_content"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "REPEAT",
+              "content": {
+                "type": "PATTERN",
+                "value": "[^\"]"
+              }
             },
             {
               "type": "STRING",
@@ -188,16 +183,11 @@
               "value": "'"
             },
             {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "single_quoted_content"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
+              "type": "REPEAT",
+              "content": {
+                "type": "PATTERN",
+                "value": "[^']"
+              }
             },
             {
               "type": "STRING",
@@ -206,14 +196,6 @@
           ]
         }
       ]
-    },
-    "double_quoted_content": {
-      "type": "PATTERN",
-      "value": "[^\"]*"
-    },
-    "single_quoted_content": {
-      "type": "PATTERN",
-      "value": "[^']*"
     }
   },
   "extras": [

@@ -42,7 +42,7 @@ module.exports = grammar({
 
     mako_block: $ => seq(
       '<%block',
-      repeat($.mako_attribute),
+      repeat($.attribute),
       '>',
       repeat(choice(
         $.text,
@@ -51,23 +51,20 @@ module.exports = grammar({
       '</%block>'
     ),
 
-    mako_comment: _ => /##[^\n]*/,
+    mako_comment: $ => /##[^\n]*/,
 
-    mako_attribute: $ => seq(
-      field('name', $.attribute_name),
+    attribute: $ => seq(
+      field('name', $.identifier),
       '=',
-      field('value', $.quoted_attribute_value)
+      field('value', $.string),
     ),
     
-    attribute_name: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-    
-    quoted_attribute_value: $ => choice(
-      seq('"', optional($.double_quoted_content), '"'),
-      seq("'", optional($.single_quoted_content), "'")
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    string: $ => choice(
+      seq('"', repeat(/[^"]/), '"'),
+      seq("'", repeat(/[^']/), "'"),
     ),
-    
-    double_quoted_content: $ => /[^"]*/,
-    single_quoted_content: $ => /[^']*/,
   }
 });
 
