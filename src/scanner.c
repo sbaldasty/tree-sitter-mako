@@ -23,6 +23,8 @@ static bool scan_injected_html(TSLexer *lexer) {
     any_chars = true;
     lexer->result_symbol = injected_html;
   }
+  lexer->advance(lexer, false);
+  lexer->mark_end(lexer);
   return any_chars;
 }
 
