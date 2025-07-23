@@ -11,22 +11,38 @@
 module.exports = grammar({
   name: 'mako',
 
-  extras: $ => [/\s/],
-
   externals: $ => [
-    $.python_code,
+    $.injected_html,
+    $.injected_python
   ],
 
   rules: {
     source_file: $ => repeat(choice(
-      $.mako_block,
-      $.mako_expression,
-      $.mako_declaration,
-      $.mako_comment,
-      $.text,
-    )),
+      $.inherit_block,
+      $.injected_html,
+      $.module_block,
+      $.namespace_block,
+      $.python_block)),
 
-    text: _ => token(prec(-1, /.+/)),
+    _ws_opt: $ => /\s*/,
+    _ws_req: $ => /\s+/,
+
+    attribute: $ => seq($.identifier, $._ws_opt, '=', $._ws_opt, $.string, $._ws_opt),
+    identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
+    inherit_block: $ => seq('<%inherit', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%inherit>'))),
+    module_block: $ => seq('<%!', $._ws_req, $.injected_python, '%>'),
+    namespace_block: $ => seq('<%namespace', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%namespace>'))),
+    python_block: $ => seq('<%', $._ws_req, $.injected_python, '%>'),
+    string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
+
+	    /*
+    text_block: $ => seq(
+      '<%text', repeat($.attribute),
+      choice('/>', seq('>', optional($.text), '</%text>'))),
+
+    general_block: $ => seq(
+      '<%block', repeat($.attribute),
+      choice('/>', seq('>', $.html, '</%block>'))),
 
     mako_expression: $ => seq(
       '${',
@@ -34,37 +50,15 @@ module.exports = grammar({
       '}'
     ),
 
-    mako_declaration: $ => seq(
-      '<%!',
-      $.python_code,
-      '%>'
-    ),
+    tag: $ => seq(
+      seq(
+        optional(
+          seq(
+            field('namespace', $.identifier),
+            ':'))),
+        field('tagname', $.identifier)),
 
-    mako_block: $ => seq(
-      '<%block',
-      repeat($.attribute),
-      '>',
-      repeat(choice(
-        $.text,
-        $.mako_comment
-      )),
-      '</%block>'
-    ),
-
-    mako_comment: $ => /##[^\n]*/,
-
-    attribute: $ => seq(
-      field('name', $.identifier),
-      '=',
-      field('value', $.string),
-    ),
-    
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-
-    string: $ => choice(
-      seq('"', repeat(/[^"]/), '"'),
-      seq("'", repeat(/[^']/), "'"),
-    ),
+*/
   }
 });
 

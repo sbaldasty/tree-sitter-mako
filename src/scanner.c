@@ -2,8 +2,49 @@
 #include <wctype.h>
 
 enum TokenType {
-  PYTHON_CODE,
+  injected_html = 0,
+  injected_python = 1
 };
+
+static bool scan_injected_html(TSLexer *lexer) {
+  bool any_chars = false;
+  while (lexer->lookahead != 0) {
+    if (any_chars) {
+      lexer->mark_end(lexer);
+    }
+    if (lexer->lookahead == '<') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '%') {
+        return any_chars;
+      }
+    } else {
+      lexer->advance(lexer, false);
+    }
+    any_chars = true;
+    lexer->result_symbol = injected_html;
+  }
+  return any_chars;
+}
+
+static bool scan_injected_python(TSLexer *lexer) {
+  bool any_chars = false;
+  while (lexer->lookahead != 0) {
+    if (any_chars) {
+      lexer->mark_end(lexer);
+    }
+    if (lexer->lookahead == '%') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '>') {
+        return any_chars;
+      }
+    } else {
+      lexer->advance(lexer, false);
+    }
+    any_chars = true;
+    lexer->result_symbol = injected_python;
+  }
+  return any_chars;
+}
 
 void *tree_sitter_mako_external_scanner_create() {
   return NULL;
@@ -13,51 +54,17 @@ void tree_sitter_mako_external_scanner_destroy(void *payload) {
   // Nothing to destroy
 }
 
-unsigned tree_sitter_mako_external_scanner_serialize(
-  void *payload,
-  char *buffer
-) {
+unsigned tree_sitter_mako_external_scanner_serialize(void *payload, char *buffer) {
   return 0; // No state to serialize
 }
 
-void tree_sitter_mako_external_scanner_deserialize(
-  void *payload,
-  const char *buffer,
-  unsigned length
-) {
+void tree_sitter_mako_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
   // No state to deserialize
 }
 
-bool tree_sitter_mako_external_scanner_scan(
-  void *payload,
-  TSLexer *lexer,
-  const bool *valid_symbols
-) {
-  if (valid_symbols[PYTHON_CODE]) {
-    // Scan for content until we hit "%>"
-    while (lexer->lookahead != 0) {
-      if (lexer->lookahead == '%') {
-        // Mark current position in case we need to backtrack
-        lexer->mark_end(lexer);
-        lexer->advance(lexer, false);
-        
-        if (lexer->lookahead == '>') {
-          // Found "%>" - end of Python content
-          // The mark_end() call above marked the position before the '%'
-          lexer->result_symbol = PYTHON_CODE;
-          return true;
-        }
-        // If not '>', continue scanning (the '%' becomes part of content)
-      } else {
-        lexer->advance(lexer, false);
-      }
-    }
-    
-    // Reached EOF - return whatever content we found
-    lexer->mark_end(lexer);
-    lexer->result_symbol = PYTHON_CODE;
-    return true;
-  }
-  
+bool tree_sitter_mako_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
+  if (valid_symbols[injected_html]) return scan_injected_html(lexer);
+  if (valid_symbols[injected_python]) return scan_injected_python(lexer);
   return false;
 }
+

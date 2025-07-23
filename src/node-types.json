@@ -2,31 +2,24 @@
   {
     "type": "attribute",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      },
-      "value": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "string",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "mako_block",
+    "type": "inherit_block",
     "named": true,
     "fields": {},
     "children": {
@@ -36,20 +29,12 @@
         {
           "type": "attribute",
           "named": true
-        },
-        {
-          "type": "mako_comment",
-          "named": true
-        },
-        {
-          "type": "text",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "mako_declaration",
+    "type": "module_block",
     "named": true,
     "fields": {},
     "children": {
@@ -57,26 +42,40 @@
       "required": true,
       "types": [
         {
-          "type": "python_code",
+          "type": "injected_python",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "mako_expression",
+    "type": "namespace_block",
     "named": true,
-    "fields": {
-      "code": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "python_code",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "python_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "injected_python",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -89,23 +88,23 @@
       "required": false,
       "types": [
         {
-          "type": "mako_block",
+          "type": "inherit_block",
           "named": true
         },
         {
-          "type": "mako_comment",
+          "type": "injected_html",
           "named": true
         },
         {
-          "type": "mako_declaration",
+          "type": "module_block",
           "named": true
         },
         {
-          "type": "mako_expression",
+          "type": "namespace_block",
           "named": true
         },
         {
-          "type": "text",
+          "type": "python_block",
           "named": true
         }
       ]
@@ -121,10 +120,6 @@
     "named": false
   },
   {
-    "type": "${",
-    "named": false
-  },
-  {
     "type": "%>",
     "named": false
   },
@@ -133,15 +128,31 @@
     "named": false
   },
   {
+    "type": "/>",
+    "named": false
+  },
+  {
+    "type": "<%",
+    "named": false
+  },
+  {
     "type": "<%!",
     "named": false
   },
   {
-    "type": "<%block",
+    "type": "<%inherit",
     "named": false
   },
   {
-    "type": "</%block>",
+    "type": "<%namespace",
+    "named": false
+  },
+  {
+    "type": "</%inherit>",
+    "named": false
+  },
+  {
+    "type": "</%namespace>",
     "named": false
   },
   {
@@ -157,19 +168,11 @@
     "named": true
   },
   {
-    "type": "mako_comment",
+    "type": "injected_html",
     "named": true
   },
   {
-    "type": "python_code",
+    "type": "injected_python",
     "named": true
-  },
-  {
-    "type": "text",
-    "named": true
-  },
-  {
-    "type": "}",
-    "named": false
   }
 ]

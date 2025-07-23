@@ -1,0 +1,17 @@
+(python_code) @injection.content
+
+(attribute
+  name: (identifier) @attribute
+  "=" @operator)
+
+["<%inherit" "</%inherit>"] @punctuation.bracket
+["<%namespace" "</%namespace>"] @punctuation.bracket
+["<%block" "</%block>"] @punctuation.bracket
+
+(python_module) @punctuation.bracket
+(python_start) @punctuation.bracket
+(python_end) @punctuation.bracket
+"/>" @punctuation.bracket
+">" @punctuation.bracket
+
+(string) @string
