@@ -126,7 +126,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "injected_python"
+          "name": "injected_python_block"
         },
         {
           "type": "STRING",
@@ -189,7 +189,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "injected_python"
+          "name": "injected_python_block"
         },
         {
           "type": "STRING",
@@ -258,7 +258,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "injected_python"
+      "name": "injected_python_block"
     }
   ],
   "inline": [],

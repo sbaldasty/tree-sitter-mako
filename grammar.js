@@ -13,7 +13,7 @@ module.exports = grammar({
 
   externals: $ => [
     $.injected_html,
-    $.injected_python
+    $.injected_python_block
   ],
 
   rules: {
@@ -30,9 +30,9 @@ module.exports = grammar({
     attribute: $ => seq($.identifier, $._ws_opt, '=', $._ws_opt, $.string, $._ws_opt),
     identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
     inherit_block: $ => seq('<%inherit', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%inherit>'))),
-    module_block: $ => seq('<%!', $._ws_req, $.injected_python, '%>'),
+    module_block: $ => seq('<%!', $._ws_req, $.injected_python_block, '%>'),
     namespace_block: $ => seq('<%namespace', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%namespace>'))),
-    python_block: $ => seq('<%', $._ws_req, $.injected_python, '%>'),
+    python_block: $ => seq('<%', $._ws_req, $.injected_python_block, '%>'),
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
 
 	    /*

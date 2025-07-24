@@ -38,7 +38,7 @@ enum ts_symbol_identifiers {
   anon_sym_SQUOTE = 16,
   aux_sym_string_token2 = 17,
   sym_injected_html = 18,
-  sym_injected_python = 19,
+  sym_injected_python_block = 19,
   sym_source_file = 20,
   sym_attribute = 21,
   sym_inherit_block = 22,
@@ -72,7 +72,7 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_SQUOTE] = "'",
   [aux_sym_string_token2] = "string_token2",
   [sym_injected_html] = "injected_html",
-  [sym_injected_python] = "injected_python",
+  [sym_injected_python_block] = "injected_python_block",
   [sym_source_file] = "source_file",
   [sym_attribute] = "attribute",
   [sym_inherit_block] = "inherit_block",
@@ -106,7 +106,7 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_SQUOTE] = anon_sym_SQUOTE,
   [aux_sym_string_token2] = aux_sym_string_token2,
   [sym_injected_html] = sym_injected_html,
-  [sym_injected_python] = sym_injected_python,
+  [sym_injected_python_block] = sym_injected_python_block,
   [sym_source_file] = sym_source_file,
   [sym_attribute] = sym_attribute,
   [sym_inherit_block] = sym_inherit_block,
@@ -197,7 +197,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [sym_injected_python] = {
+  [sym_injected_python_block] = {
     .visible = true,
     .named = true,
   },
@@ -592,7 +592,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_DQUOTE] = ACTIONS(1),
     [anon_sym_SQUOTE] = ACTIONS(1),
     [sym_injected_html] = ACTIONS(1),
-    [sym_injected_python] = ACTIONS(1),
+    [sym_injected_python_block] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_source_file] = STATE(30),
@@ -859,13 +859,13 @@ static const uint16_t ts_small_parse_table[] = {
       sym__ws_opt,
   [328] = 1,
     ACTIONS(137), 1,
-      sym_injected_python,
+      sym_injected_python_block,
   [332] = 1,
     ACTIONS(139), 1,
       sym__ws_opt,
   [336] = 1,
     ACTIONS(141), 1,
-      sym_injected_python,
+      sym_injected_python_block,
   [340] = 1,
     ACTIONS(143), 1,
       sym__ws_opt,
@@ -1006,24 +1006,24 @@ static const TSParseActionEntry ts_parse_actions[] = {
 
 enum ts_external_scanner_symbol_identifiers {
   ts_external_token_injected_html = 0,
-  ts_external_token_injected_python = 1,
+  ts_external_token_injected_python_block = 1,
 };
 
 static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
   [ts_external_token_injected_html] = sym_injected_html,
-  [ts_external_token_injected_python] = sym_injected_python,
+  [ts_external_token_injected_python_block] = sym_injected_python_block,
 };
 
 static const bool ts_external_scanner_states[4][EXTERNAL_TOKEN_COUNT] = {
   [1] = {
     [ts_external_token_injected_html] = true,
-    [ts_external_token_injected_python] = true,
+    [ts_external_token_injected_python_block] = true,
   },
   [2] = {
     [ts_external_token_injected_html] = true,
   },
   [3] = {
-    [ts_external_token_injected_python] = true,
+    [ts_external_token_injected_python_block] = true,
   },
 };
 

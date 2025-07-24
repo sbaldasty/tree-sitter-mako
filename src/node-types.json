@@ -42,7 +42,7 @@
       "required": true,
       "types": [
         {
-          "type": "injected_python",
+          "type": "injected_python_block",
           "named": true
         }
       ]
@@ -72,7 +72,7 @@
       "required": true,
       "types": [
         {
-          "type": "injected_python",
+          "type": "injected_python_block",
           "named": true
         }
       ]
@@ -172,7 +172,7 @@
     "named": true
   },
   {
-    "type": "injected_python",
+    "type": "injected_python_block",
     "named": true
   }
 ]

@@ -3,7 +3,7 @@
 
 enum TokenType {
   injected_html = 0,
-  injected_python = 1
+  injected_python_block = 1
 };
 
 static bool scan_injected_html(TSLexer *lexer) {
@@ -28,7 +28,7 @@ static bool scan_injected_html(TSLexer *lexer) {
   return any_chars;
 }
 
-static bool scan_injected_python(TSLexer *lexer) {
+static bool scan_injected_python_block(TSLexer *lexer) {
   bool any_chars = false;
   while (lexer->lookahead != 0) {
     if (any_chars) {
@@ -43,8 +43,10 @@ static bool scan_injected_python(TSLexer *lexer) {
       lexer->advance(lexer, false);
     }
     any_chars = true;
-    lexer->result_symbol = injected_python;
+    lexer->result_symbol = injected_python_block;
   }
+  lexer->advance(lexer, false);
+  lexer->mark_end(lexer);
   return any_chars;
 }
 
@@ -66,7 +68,7 @@ void tree_sitter_mako_external_scanner_deserialize(void *payload, const char *bu
 
 bool tree_sitter_mako_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   if (valid_symbols[injected_html]) return scan_injected_html(lexer);
-  if (valid_symbols[injected_python]) return scan_injected_python(lexer);
+  if (valid_symbols[injected_python_block]) return scan_injected_python_block(lexer);
   return false;
 }
 
