@@ -24,6 +24,21 @@
     "fields": {}
   },
   {
+    "type": "include_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "inherit_block",
     "named": true,
     "fields": {},
@@ -97,6 +112,10 @@
           "named": true
         },
         {
+          "type": "include_block",
+          "named": true
+        },
+        {
           "type": "inherit_block",
           "named": true
         },
@@ -153,11 +172,19 @@
     "named": false
   },
   {
+    "type": "<%include",
+    "named": false
+  },
+  {
     "type": "<%inherit",
     "named": false
   },
   {
     "type": "<%namespace",
+    "named": false
+  },
+  {
+    "type": "</%include>",
     "named": false
   },
   {
