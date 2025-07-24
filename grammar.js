@@ -13,7 +13,8 @@ module.exports = grammar({
 
   externals: $ => [
     $.injected_html,
-    $.injected_python_block
+    $.injected_python_block,
+    $.text
   ],
 
   rules: {
@@ -25,7 +26,8 @@ module.exports = grammar({
       $.module_block,
       $.newline_filter,
       $.namespace_block,
-      $.python_block)),
+      $.python_block,
+      $.text_block)),
 
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
@@ -38,10 +40,10 @@ module.exports = grammar({
     identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#include
-    include_block: $ => seq('<%include', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%include>'))),
+    include_block: $ => seq('<%include', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', '</%include>'))),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#inherit
-    inherit_block: $ => seq('<%inherit', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%inherit>'))),
+    inherit_block: $ => seq('<%inherit', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', '</%inherit>'))),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#module-level-blocks
     module_block: $ => seq('<%!', $._ws_req, $.injected_python_block, '%>'),
@@ -50,10 +52,13 @@ module.exports = grammar({
     newline_filter: $ => seq('\\', '\n'),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#namespace
-    namespace_block: $ => seq('<%namespace', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%namespace>'))),
+    namespace_block: $ => seq('<%namespace', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', '</%namespace>'))),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#python-blocks
     python_block: $ => seq('<%', $._ws_req, $.injected_python_block, '%>'),
+
+    // See https://docs.makotemplates.org/en/latest/syntax.html#text
+    text_block: $ => seq('<%text', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($.text), '</%text>'))),
 
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
 

@@ -143,6 +143,10 @@
         {
           "type": "python_block",
           "named": true
+        },
+        {
+          "type": "text_block",
+          "named": true
         }
       ]
     }
@@ -151,6 +155,25 @@
     "type": "string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "text_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "text",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "\n",
@@ -197,6 +220,10 @@
     "named": false
   },
   {
+    "type": "<%text",
+    "named": false
+  },
+  {
     "type": "</%include>",
     "named": false
   },
@@ -206,6 +233,10 @@
   },
   {
     "type": "</%namespace>",
+    "named": false
+  },
+  {
+    "type": "</%text>",
     "named": false
   },
   {
@@ -230,6 +261,10 @@
   },
   {
     "type": "injected_python_block",
+    "named": true
+  },
+  {
+    "type": "text",
     "named": true
   }
 ]
