@@ -18,6 +18,7 @@ module.exports = grammar({
 
   rules: {
     source_file: $ => repeat(choice(
+      $.comment,
       $.inherit_block,
       $.injected_html,
       $.module_block,
@@ -28,6 +29,7 @@ module.exports = grammar({
     _ws_req: $ => /\s+/,
 
     attribute: $ => seq($.identifier, $._ws_opt, '=', $._ws_opt, $.string, $._ws_opt),
+    comment: $ => seq('##', repeat(/[^\n]/)),
     identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
     inherit_block: $ => seq('<%inherit', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%inherit>'))),
     module_block: $ => seq('<%!', $._ws_req, $.injected_python_block, '%>'),

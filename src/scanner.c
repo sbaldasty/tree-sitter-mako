@@ -17,6 +17,11 @@ static bool scan_injected_html(TSLexer *lexer) {
       if (lexer->lookahead == '%') {
         return any_chars;
       }
+    } else if (lexer->lookahead == '#') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '#') {
+        return any_chars;
+      }
     } else {
       lexer->advance(lexer, false);
     }

@@ -8,5 +8,6 @@ x = 1
 
 (source_file
   (python_block
-    (injected_python)))
+    (injected_python_block)))
+
 

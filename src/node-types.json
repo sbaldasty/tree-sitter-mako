@@ -19,6 +19,11 @@
     }
   },
   {
+    "type": "comment",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "inherit_block",
     "named": true,
     "fields": {},
@@ -88,6 +93,10 @@
       "required": false,
       "types": [
         {
+          "type": "comment",
+          "named": true
+        },
+        {
           "type": "inherit_block",
           "named": true
         },
@@ -117,6 +126,10 @@
   },
   {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "##",
     "named": false
   },
   {
