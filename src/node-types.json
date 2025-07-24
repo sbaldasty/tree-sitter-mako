@@ -108,6 +108,21 @@
     "fields": {}
   },
   {
+    "type": "page_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "python_block",
     "named": true,
     "fields": {},
@@ -161,6 +176,10 @@
         },
         {
           "type": "newline_filter",
+          "named": true
+        },
+        {
+          "type": "page_block",
           "named": true
         },
         {
@@ -247,6 +266,10 @@
     "named": false
   },
   {
+    "type": "<%page",
+    "named": false
+  },
+  {
     "type": "<%text",
     "named": false
   },
@@ -264,6 +287,10 @@
   },
   {
     "type": "</%namespace>",
+    "named": false
+  },
+  {
+    "type": "</%page>",
     "named": false
   },
   {

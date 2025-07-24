@@ -29,7 +29,8 @@ module.exports = grammar({
       $.namespace_block,
       $.python_block,
       $.text_block,
-      $.doc_block)),
+      $.doc_block,
+      $.page_block)),
 
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
@@ -64,6 +65,9 @@ module.exports = grammar({
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#comments
     doc_block: $ => seq('<%doc', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($.doc), '</%doc>'))),
+
+    // See https://docs.makotemplates.org/en/latest/syntax.html#page
+    page_block: $ => seq('<%page', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', $._ws_opt, '</%page>'))),
 
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
   }
