@@ -24,6 +24,25 @@
     "fields": {}
   },
   {
+    "type": "doc_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "doc",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "include_block",
     "named": true,
     "fields": {},
@@ -114,6 +133,10 @@
       "types": [
         {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "doc_block",
           "named": true
         },
         {
@@ -208,6 +231,10 @@
     "named": false
   },
   {
+    "type": "<%doc",
+    "named": false
+  },
+  {
     "type": "<%include",
     "named": false
   },
@@ -221,6 +248,10 @@
   },
   {
     "type": "<%text",
+    "named": false
+  },
+  {
+    "type": "</%doc>",
     "named": false
   },
   {
@@ -250,6 +281,10 @@
   {
     "type": "\\",
     "named": false
+  },
+  {
+    "type": "doc",
+    "named": true
   },
   {
     "type": "identifier",

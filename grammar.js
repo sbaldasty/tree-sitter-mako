@@ -14,7 +14,8 @@ module.exports = grammar({
   externals: $ => [
     $.injected_html,
     $.injected_python_block,
-    $.text
+    $.text,
+    $.doc
   ],
 
   rules: {
@@ -27,7 +28,8 @@ module.exports = grammar({
       $.newline_filter,
       $.namespace_block,
       $.python_block,
-      $.text_block)),
+      $.text_block,
+      $.doc_block)),
 
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
@@ -60,32 +62,10 @@ module.exports = grammar({
     // See https://docs.makotemplates.org/en/latest/syntax.html#text
     text_block: $ => seq('<%text', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($.text), '</%text>'))),
 
+    // See https://docs.makotemplates.org/en/latest/syntax.html#comments
+    doc_block: $ => seq('<%doc', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($.doc), '</%doc>'))),
+
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
-
-	    /*
-    text_block: $ => seq(
-      '<%text', repeat($.attribute),
-      choice('/>', seq('>', optional($.text), '</%text>'))),
-
-    general_block: $ => seq(
-      '<%block', repeat($.attribute),
-      choice('/>', seq('>', $.html, '</%block>'))),
-
-    mako_expression: $ => seq(
-      '${',
-      field('code', $.python_code),
-      '}'
-    ),
-
-    tag: $ => seq(
-      seq(
-        optional(
-          seq(
-            field('namespace', $.identifier),
-            ':'))),
-        field('tagname', $.identifier)),
-
-*/
   }
 });
 

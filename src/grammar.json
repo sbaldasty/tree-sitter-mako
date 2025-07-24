@@ -42,6 +42,10 @@
           {
             "type": "SYMBOL",
             "name": "text_block"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "doc_block"
           }
         ]
       }
@@ -390,6 +394,73 @@
         }
       ]
     },
+    "doc_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<%doc"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_ws_req"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "attribute"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "/>"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ">"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "doc"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": "</%doc>"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "string": {
       "type": "CHOICE",
       "members": [
@@ -456,6 +527,10 @@
     {
       "type": "SYMBOL",
       "name": "text"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "doc"
     }
   ],
   "inline": [],
