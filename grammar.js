@@ -23,6 +23,7 @@ module.exports = grammar({
       $.inherit_block,
       $.injected_html,
       $.module_block,
+      $.newline_filter,
       $.namespace_block,
       $.python_block)),
 
@@ -35,6 +36,10 @@ module.exports = grammar({
     include_block: $ => seq('<%include', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%include>'))),
     inherit_block: $ => seq('<%inherit', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%inherit>'))),
     module_block: $ => seq('<%!', $._ws_req, $.injected_python_block, '%>'),
+
+    // See https://docs.makotemplates.org/en/latest/syntax.html#newline-filters
+    newline_filter: $ => seq('\\', '\n'),
+
     namespace_block: $ => seq('<%namespace', $._ws_req, repeat($.attribute), choice('/>', seq('>', '</%namespace>'))),
     python_block: $ => seq('<%', $._ws_req, $.injected_python_block, '%>'),
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))

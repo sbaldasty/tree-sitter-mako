@@ -84,6 +84,11 @@
     }
   },
   {
+    "type": "newline_filter",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "python_block",
     "named": true,
     "fields": {},
@@ -132,6 +137,10 @@
           "named": true
         },
         {
+          "type": "newline_filter",
+          "named": true
+        },
+        {
           "type": "python_block",
           "named": true
         }
@@ -142,6 +151,10 @@
     "type": "string",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "\n",
+    "named": false
   },
   {
     "type": "\"",
@@ -201,6 +214,10 @@
   },
   {
     "type": ">",
+    "named": false
+  },
+  {
+    "type": "\\",
     "named": false
   },
   {

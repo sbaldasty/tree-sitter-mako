@@ -29,6 +29,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "newline_filter"
+          },
+          {
+            "type": "SYMBOL",
             "name": "namespace_block"
           },
           {
@@ -197,6 +201,19 @@
         {
           "type": "STRING",
           "value": "%>"
+        }
+      ]
+    },
+    "newline_filter": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\\"
+        },
+        {
+          "type": "STRING",
+          "value": "\n"
         }
       ]
     },
