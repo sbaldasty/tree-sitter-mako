@@ -3,56 +3,85 @@
   "name": "mako",
   "rules": {
     "source_file": {
-      "type": "REPEAT",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_general_content"
+        },
+        {
+          "type": "BLANK"
+        }
+      ]
+    },
+    "_general_content": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_content"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
             "type": "SYMBOL",
-            "name": "comment"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "include_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "inherit_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "injected_html"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "module_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "newline_filter"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "namespace_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "python_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "text_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "doc_block"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "page_block"
+            "name": "_content"
           }
-        ]
-      }
+        }
+      ]
+    },
+    "_content": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "inherit_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "injected_html"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "module_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "newline_filter"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "namespace_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "python_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "text_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "doc_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "page_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "general_block"
+        }
+      ]
     },
     "_ws_opt": {
       "type": "PATTERN",
@@ -517,6 +546,73 @@
                 {
                   "type": "STRING",
                   "value": "</%page>"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "general_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "<%block"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_ws_req"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "attribute"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "/>"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ">"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_general_content"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "STRING",
+                  "value": "</%block>"
                 }
               ]
             }

@@ -19,7 +19,11 @@ module.exports = grammar({
   ],
 
   rules: {
-    source_file: $ => repeat(choice(
+    source_file: $ => optional($._general_content),
+
+    _general_content: $ => seq($._content, repeat($._content)),
+
+    _content: $ => choice(
       $.comment,
       $.include_block,
       $.inherit_block,
@@ -30,7 +34,8 @@ module.exports = grammar({
       $.python_block,
       $.text_block,
       $.doc_block,
-      $.page_block)),
+      $.page_block,
+      $.general_block),
 
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
@@ -69,6 +74,9 @@ module.exports = grammar({
     // See https://docs.makotemplates.org/en/latest/syntax.html#page
     page_block: $ => seq('<%page', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', $._ws_opt, '</%page>'))),
 
+    // See https://docs.makotemplates.org/en/latest/syntax.html#block
+    general_block: $ => seq('<%block', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($._general_content), '</%block>'))),
+ 
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
   }
 });

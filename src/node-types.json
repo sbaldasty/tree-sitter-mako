@@ -43,6 +43,69 @@
     }
   },
   {
+    "type": "general_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "doc_block",
+          "named": true
+        },
+        {
+          "type": "general_block",
+          "named": true
+        },
+        {
+          "type": "include_block",
+          "named": true
+        },
+        {
+          "type": "inherit_block",
+          "named": true
+        },
+        {
+          "type": "injected_html",
+          "named": true
+        },
+        {
+          "type": "module_block",
+          "named": true
+        },
+        {
+          "type": "namespace_block",
+          "named": true
+        },
+        {
+          "type": "newline_filter",
+          "named": true
+        },
+        {
+          "type": "page_block",
+          "named": true
+        },
+        {
+          "type": "python_block",
+          "named": true
+        },
+        {
+          "type": "text_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "include_block",
     "named": true,
     "fields": {},
@@ -155,6 +218,10 @@
           "named": true
         },
         {
+          "type": "general_block",
+          "named": true
+        },
+        {
           "type": "include_block",
           "named": true
         },
@@ -250,6 +317,10 @@
     "named": false
   },
   {
+    "type": "<%block",
+    "named": false
+  },
+  {
     "type": "<%doc",
     "named": false
   },
@@ -271,6 +342,10 @@
   },
   {
     "type": "<%text",
+    "named": false
+  },
+  {
+    "type": "</%block>",
     "named": false
   },
   {
