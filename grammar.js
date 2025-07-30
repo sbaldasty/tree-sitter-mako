@@ -36,7 +36,8 @@ module.exports = grammar({
       $.doc_block,
       $.page_block,
       $.general_block,
-      $.def_block),
+      $.def_block,
+      $.call_block),
 
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
@@ -80,6 +81,9 @@ module.exports = grammar({
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#def
     def_block: $ => seq('<%def', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($._general_content), '</%def>'))),
+
+    // See https://docs.makotemplates.org/en/latest/syntax.html#def
+    call_block: $ => seq('<%call', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($._general_content), '</%call>'))),
 
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
   }

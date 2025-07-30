@@ -19,6 +19,77 @@
     }
   },
   {
+    "type": "call_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "call_block",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "def_block",
+          "named": true
+        },
+        {
+          "type": "doc_block",
+          "named": true
+        },
+        {
+          "type": "general_block",
+          "named": true
+        },
+        {
+          "type": "include_block",
+          "named": true
+        },
+        {
+          "type": "inherit_block",
+          "named": true
+        },
+        {
+          "type": "injected_html",
+          "named": true
+        },
+        {
+          "type": "module_block",
+          "named": true
+        },
+        {
+          "type": "namespace_block",
+          "named": true
+        },
+        {
+          "type": "newline_filter",
+          "named": true
+        },
+        {
+          "type": "page_block",
+          "named": true
+        },
+        {
+          "type": "python_block",
+          "named": true
+        },
+        {
+          "type": "text_block",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "fields": {}
@@ -33,6 +104,10 @@
       "types": [
         {
           "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "call_block",
           "named": true
         },
         {
@@ -119,6 +194,10 @@
       "types": [
         {
           "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "call_block",
           "named": true
         },
         {
@@ -281,6 +360,10 @@
       "required": false,
       "types": [
         {
+          "type": "call_block",
+          "named": true
+        },
+        {
           "type": "comment",
           "named": true
         },
@@ -396,6 +479,10 @@
     "named": false
   },
   {
+    "type": "<%call",
+    "named": false
+  },
+  {
     "type": "<%def",
     "named": false
   },
@@ -425,6 +512,10 @@
   },
   {
     "type": "</%block>",
+    "named": false
+  },
+  {
+    "type": "</%call>",
     "named": false
   },
   {
