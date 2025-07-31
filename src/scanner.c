@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include <tree_sitter/parser.h>
 #include <wctype.h>
 
@@ -58,7 +56,6 @@ static bool scan_injected_python_block(TSLexer *lexer) {
   int quotes = 0;
   int apostros = 0;
   while (lexer->lookahead != 0) {
-	  printf("ch=%c, apos=%d\n", lexer->lookahead, apostros);
     if (any_chars) {
       lexer->mark_end(lexer);
     }
@@ -84,7 +81,6 @@ static bool scan_injected_python_block(TSLexer *lexer) {
       escaping = !escaping && lexer->lookahead == '\\';
       lexer->advance(lexer, false);
     } else if (in_apostro_ml_str) {
-	    printf("Found apostro ml\n");
       if (lexer->lookahead == '\'') {
         apostros++;
       } else {
