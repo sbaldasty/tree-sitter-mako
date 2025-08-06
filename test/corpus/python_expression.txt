@@ -1,0 +1,195 @@
+================================================================================
+Ends with closing brace when no special characters
+================================================================================
+<div>Some html</div>${x}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Closing brace in single quoted string doesn't end expression
+================================================================================
+<div>Some html</div>${'}'}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Closing brace in double quoted string doesn't end expression
+================================================================================
+<div>Some html</div>${"}"}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Closing brace in single quoted multi-line string doesn't end expression
+================================================================================
+<div>Some html</div>${'''}'''}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Closing brace in double quoted multi-line string doesn't end expression
+================================================================================
+<div>Some html</div>${"""}"""}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Matched brace pairs don't end expression
+================================================================================
+<div>Some html</div>${{"a": 1, "b": 2}["b"]}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Opening brace in single quoted string doesn't count as brace
+================================================================================
+<div>Some html</div>${'{'}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Opening brace in double quoted string doesn't count as brace
+================================================================================
+<div>Some html</div>${"{"}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Opening brace in single quoted multi-line string doesn't count as brace
+================================================================================
+<div>Some html</div>${'''{'''}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Opening brace in double quoted multi-line string doesn't count as brace
+================================================================================
+<div>Some html</div>${"""{"""}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression))
+  (comment)
+  (injected_html))
+
+================================================================================
+Supports filters
+================================================================================
+<div>Some html</div>${x|f}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression)
+    (qualified_identifier
+      (identifier)))
+  (comment)
+  (injected_html))
+
+================================================================================
+Supports qualified filters
+================================================================================
+<div>Some html</div>${x|p.f}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression)
+    (qualified_identifier
+      (identifier)
+      (identifier)))
+  (comment)
+  (injected_html))
+
+================================================================================
+Supports multiple filters
+================================================================================
+<div>Some html</div>${x|f,g}##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression)
+    (qualified_identifier
+      (identifier))
+    (qualified_identifier
+      (identifier)))
+  (comment)
+  (injected_html))
+
+================================================================================
+Extra spaces around filters are okay
+================================================================================
+<div>Some html</div>${x| f , g }##comment
+--------------------------------------------------------------------------------
+
+(source_file
+  (injected_html)
+  (python_expression 
+    (injected_python_expression)
+    (qualified_identifier
+      (identifier))
+    (qualified_identifier
+      (identifier)))
+  (comment)
+  (injected_html))
+

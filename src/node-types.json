@@ -83,6 +83,10 @@
           "named": true
         },
         {
+          "type": "python_expression",
+          "named": true
+        },
+        {
           "type": "text_block",
           "named": true
         }
@@ -156,6 +160,10 @@
         },
         {
           "type": "python_block",
+          "named": true
+        },
+        {
+          "type": "python_expression",
           "named": true
         },
         {
@@ -246,6 +254,10 @@
         },
         {
           "type": "python_block",
+          "named": true
+        },
+        {
+          "type": "python_expression",
           "named": true
         },
         {
@@ -351,6 +363,44 @@
     }
   },
   {
+    "type": "python_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "injected_python_expression",
+          "named": true
+        },
+        {
+          "type": "qualified_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qualified_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -412,6 +462,10 @@
           "named": true
         },
         {
+          "type": "python_expression",
+          "named": true
+        },
+        {
           "type": "text_block",
           "named": true
         }
@@ -455,11 +509,23 @@
     "named": false
   },
   {
+    "type": "${",
+    "named": false
+  },
+  {
     "type": "%>",
     "named": false
   },
   {
     "type": "'",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ".",
     "named": false
   },
   {
@@ -575,7 +641,19 @@
     "named": true
   },
   {
+    "type": "injected_python_expression",
+    "named": true
+  },
+  {
     "type": "text",
     "named": true
+  },
+  {
+    "type": "|",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]

@@ -15,7 +15,8 @@ module.exports = grammar({
     $.injected_html,
     $.injected_python_block,
     $.text,
-    $.doc
+    $.doc,
+    $.injected_python_expression
   ],
 
   rules: {
@@ -37,17 +38,19 @@ module.exports = grammar({
       $.page_block,
       $.general_block,
       $.def_block,
-      $.call_block),
+      $.call_block,
+      $.python_expression),
 
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
 
     attribute: $ => seq($.identifier, $._ws_opt, '=', $._ws_opt, $.string, $._ws_opt),
+    identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
+    qualified_identifier: $ => prec.left(1000, choice($.identifier, seq($.identifier, '.', $.identifier))),
+    string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'")),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#comments
     comment: $ => seq('##', repeat(/[^\n]/)),
-
-    identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#include
     include_block: $ => seq('<%include', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', '</%include>'))),
@@ -85,7 +88,18 @@ module.exports = grammar({
     // See https://docs.makotemplates.org/en/latest/syntax.html#def
     call_block: $ => seq('<%call', optional(seq($._ws_req, repeat($.attribute))), choice('/>', seq('>', optional($._general_content), '</%call>'))),
 
-    string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'"))
+    // See https://docs.makotemplates.org/en/latest/syntax.html#expression-substitution
+    // See also https://docs.makotemplates.org/en/latest/syntax.html#expression-escaping
+    python_expression: $ => choice(
+      seq(
+        '${', $.injected_python_expression, '}'),
+      seq(
+        '${',
+        $.injected_python_expression,
+        '|',
+        choice($.identifier, $.qualified_identifier),
+        repeat(seq($._ws_opt, ',', $._ws_opt, choice($.identifier, $.qualified_identifier))),
+        '}'))
   }
 });
 
