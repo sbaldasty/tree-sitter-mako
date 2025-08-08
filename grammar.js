@@ -11,6 +11,8 @@
 module.exports = grammar({
   name: 'mako',
 
+  conflicts: $ => [[$.python_expression_filter], [$.qualified_identifier]],
+
   externals: $ => [
     $.injected_html,
     $.injected_python_block,
@@ -46,7 +48,7 @@ module.exports = grammar({
 
     attribute: $ => seq($.identifier, $._ws_opt, '=', $._ws_opt, $.string, $._ws_opt),
     identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
-    qualified_identifier: $ => prec.left(1000, choice($.identifier, seq($.identifier, '.', $.identifier))),
+    qualified_identifier: $ => seq($.identifier, repeat(seq($._ws_opt, '.', $._ws_opt, $.identifier))),
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'")),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#comments
@@ -90,16 +92,11 @@ module.exports = grammar({
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#expression-substitution
     // See also https://docs.makotemplates.org/en/latest/syntax.html#expression-escaping
+    python_expression_filter: $ => seq($.qualified_identifier, repeat(seq($._ws_opt, ',', $._ws_opt, $.qualified_identifier))),
     python_expression: $ => choice(
-      seq(
-        '${', $.injected_python_expression, '}'),
-      seq(
-        '${',
-        $.injected_python_expression,
-        '|',
-        choice($.identifier, $.qualified_identifier),
-        repeat(seq($._ws_opt, ',', $._ws_opt, choice($.identifier, $.qualified_identifier))),
-        '}'))
+      seq('${', $.injected_python_expression, '}'),
+      seq('${', $.injected_python_expression, '|', $._ws_opt, $.python_expression_filter, $._ws_opt, '}')
+    )
   }
 });
 

@@ -371,13 +371,24 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
-          "named": true
-        },
-        {
           "type": "injected_python_expression",
           "named": true
         },
+        {
+          "type": "python_expression_filter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "python_expression_filter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
           "type": "qualified_identifier",
           "named": true

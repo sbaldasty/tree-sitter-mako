@@ -138,8 +138,9 @@ Supports filters
   (injected_html)
   (python_expression 
     (injected_python_expression)
-    (qualified_identifier
-      (identifier)))
+    (python_expression_filter
+      (qualified_identifier
+        (identifier))))
   (comment)
   (injected_html))
 
@@ -153,9 +154,10 @@ Supports qualified filters
   (injected_html)
   (python_expression 
     (injected_python_expression)
-    (qualified_identifier
-      (identifier)
-      (identifier)))
+    (python_expression_filter
+      (qualified_identifier
+        (identifier)
+        (identifier))))
   (comment)
   (injected_html))
 
@@ -169,10 +171,11 @@ Supports multiple filters
   (injected_html)
   (python_expression 
     (injected_python_expression)
-    (qualified_identifier
-      (identifier))
-    (qualified_identifier
-      (identifier)))
+    (python_expression_filter
+      (qualified_identifier
+        (identifier))
+      (qualified_identifier
+        (identifier))))
   (comment)
   (injected_html))
 
@@ -186,10 +189,11 @@ Extra spaces around filters are okay
   (injected_html)
   (python_expression 
     (injected_python_expression)
-    (qualified_identifier
-      (identifier))
-    (qualified_identifier
-      (identifier)))
+    (python_expression_filter
+      (qualified_identifier
+        (identifier))
+      (qualified_identifier
+        (identifier))))
   (comment)
   (injected_html))
 
