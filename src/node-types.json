@@ -89,6 +89,10 @@
         {
           "type": "text_block",
           "named": true
+        },
+        {
+          "type": "user_block",
+          "named": true
         }
       ]
     }
@@ -168,6 +172,10 @@
         },
         {
           "type": "text_block",
+          "named": true
+        },
+        {
+          "type": "user_block",
           "named": true
         }
       ]
@@ -262,6 +270,10 @@
         },
         {
           "type": "text_block",
+          "named": true
+        },
+        {
+          "type": "user_block",
           "named": true
         }
       ]
@@ -479,6 +491,10 @@
         {
           "type": "text_block",
           "named": true
+        },
+        {
+          "type": "user_block",
+          "named": true
         }
       ]
     }
@@ -502,6 +518,104 @@
         },
         {
           "type": "text",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "user_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
+        {
+          "type": "call_block",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "def_block",
+          "named": true
+        },
+        {
+          "type": "doc_block",
+          "named": true
+        },
+        {
+          "type": "general_block",
+          "named": true
+        },
+        {
+          "type": "include_block",
+          "named": true
+        },
+        {
+          "type": "inherit_block",
+          "named": true
+        },
+        {
+          "type": "injected_html",
+          "named": true
+        },
+        {
+          "type": "module_block",
+          "named": true
+        },
+        {
+          "type": "namespace_block",
+          "named": true
+        },
+        {
+          "type": "newline_filter",
+          "named": true
+        },
+        {
+          "type": "page_block",
+          "named": true
+        },
+        {
+          "type": "python_block",
+          "named": true
+        },
+        {
+          "type": "python_expression",
+          "named": true
+        },
+        {
+          "type": "text_block",
+          "named": true
+        },
+        {
+          "type": "user_block",
+          "named": true
+        },
+        {
+          "type": "user_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "user_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -541,6 +655,10 @@
   },
   {
     "type": "/>",
+    "named": false
+  },
+  {
+    "type": ":",
     "named": false
   },
   {
@@ -585,6 +703,10 @@
   },
   {
     "type": "<%text",
+    "named": false
+  },
+  {
+    "type": "</%",
     "named": false
   },
   {
