@@ -1,6 +1,5 @@
 #include <tree_sitter/parser.h>
 #include <wctype.h>
-#include <stdio.h>
 
 enum TokenType {
   injected_html = 0,
@@ -23,7 +22,6 @@ static bool scan_injected_html(TSLexer *lexer) {
         lexer->advance(lexer, false);
       }
       if (lexer->lookahead == '%') {
-        printf("here1\n");
         lexer->advance(lexer, false);
 	if (any_chars && (lexer->lookahead == '%' || iswblank(lexer->lookahead))) {
           lexer->result_symbol = injected_html;
