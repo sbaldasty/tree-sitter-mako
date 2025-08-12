@@ -18,7 +18,9 @@ module.exports = grammar({
     $.injected_python_block,
     $.text,
     $.doc,
-    $.injected_python_expression
+    $.injected_python_expression,
+    $._line_percent,
+    $.escaped_line_percent
   ],
 
   rules: {
@@ -33,6 +35,8 @@ module.exports = grammar({
       $.injected_html,
       $.module_block,
       $.newline_filter,
+      $.escaped_line_percent,
+      $.python_line,
       $.namespace_block,
       $.python_block,
       $.text_block,
@@ -47,10 +51,14 @@ module.exports = grammar({
     _ws_opt: $ => /\s*/,
     _ws_req: $ => /\s+/,
 
+    injected_python_line: $ => /[^\n]+/,
     attribute: $ => seq($.identifier, $._ws_opt, '=', $._ws_opt, $.string, $._ws_opt),
     identifier: $ => /[A-Za-z_][0-9A-Za-z_]*/,
     qualified_identifier: $ => seq($.identifier, repeat(seq($._ws_opt, '.', $._ws_opt, $.identifier))),
     string: $ => choice(seq('"', repeat(/[^"]/), '"'), seq("'", repeat(/[^']/), "'")),
+
+    // See https://docs.makotemplates.org/en/latest/syntax.html#control-structures
+    python_line: $ => prec(2, seq($._line_percent, $._ws_opt, choice('endif', 'endfor', $.injected_python_line), $._ws_opt)),
 
     // See https://docs.makotemplates.org/en/latest/syntax.html#comments
     comment: $ => seq('##', repeat(/[^\n]/)),

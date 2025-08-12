@@ -47,6 +47,10 @@
           "named": true
         },
         {
+          "type": "escaped_line_percent",
+          "named": true
+        },
+        {
           "type": "general_block",
           "named": true
         },
@@ -84,6 +88,10 @@
         },
         {
           "type": "python_expression",
+          "named": true
+        },
+        {
+          "type": "python_line",
           "named": true
         },
         {
@@ -131,6 +139,10 @@
           "named": true
         },
         {
+          "type": "escaped_line_percent",
+          "named": true
+        },
+        {
           "type": "general_block",
           "named": true
         },
@@ -168,6 +180,10 @@
         },
         {
           "type": "python_expression",
+          "named": true
+        },
+        {
+          "type": "python_line",
           "named": true
         },
         {
@@ -229,6 +245,10 @@
           "named": true
         },
         {
+          "type": "escaped_line_percent",
+          "named": true
+        },
+        {
           "type": "general_block",
           "named": true
         },
@@ -266,6 +286,10 @@
         },
         {
           "type": "python_expression",
+          "named": true
+        },
+        {
+          "type": "python_line",
           "named": true
         },
         {
@@ -409,6 +433,21 @@
     }
   },
   {
+    "type": "python_line",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "injected_python_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "qualified_identifier",
     "named": true,
     "fields": {},
@@ -449,6 +488,10 @@
           "named": true
         },
         {
+          "type": "escaped_line_percent",
+          "named": true
+        },
+        {
           "type": "general_block",
           "named": true
         },
@@ -486,6 +529,10 @@
         },
         {
           "type": "python_expression",
+          "named": true
+        },
+        {
+          "type": "python_line",
           "named": true
         },
         {
@@ -552,6 +599,10 @@
           "named": true
         },
         {
+          "type": "escaped_line_percent",
+          "named": true
+        },
+        {
           "type": "general_block",
           "named": true
         },
@@ -589,6 +640,10 @@
         },
         {
           "type": "python_expression",
+          "named": true
+        },
+        {
+          "type": "python_line",
           "named": true
         },
         {
@@ -762,6 +817,18 @@
     "named": true
   },
   {
+    "type": "endfor",
+    "named": false
+  },
+  {
+    "type": "endif",
+    "named": false
+  },
+  {
+    "type": "escaped_line_percent",
+    "named": true
+  },
+  {
     "type": "identifier",
     "named": true
   },
@@ -775,6 +842,10 @@
   },
   {
     "type": "injected_python_expression",
+    "named": true
+  },
+  {
+    "type": "injected_python_line",
     "named": true
   },
   {

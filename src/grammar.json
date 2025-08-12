@@ -59,6 +59,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "escaped_line_percent"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "python_line"
+        },
+        {
+          "type": "SYMBOL",
           "name": "namespace_block"
         },
         {
@@ -106,6 +114,10 @@
     "_ws_req": {
       "type": "PATTERN",
       "value": "\\s+"
+    },
+    "injected_python_line": {
+      "type": "PATTERN",
+      "value": "[^\\n]+"
     },
     "attribute": {
       "type": "SEQ",
@@ -217,6 +229,44 @@
           ]
         }
       ]
+    },
+    "python_line": {
+      "type": "PREC",
+      "value": 2,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_line_percent"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_ws_opt"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "endif"
+              },
+              {
+                "type": "STRING",
+                "value": "endfor"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "injected_python_line"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_ws_opt"
+          }
+        ]
+      }
     },
     "comment": {
       "type": "SEQ",
@@ -1076,6 +1126,14 @@
     {
       "type": "SYMBOL",
       "name": "injected_python_expression"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_line_percent"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "escaped_line_percent"
     }
   ],
   "inline": [],

@@ -1,12 +1,15 @@
 #include <tree_sitter/parser.h>
 #include <wctype.h>
+#include <stdio.h>
 
 enum TokenType {
   injected_html = 0,
   injected_python_block = 1,
   text = 2,
   doc = 3,
-  injected_python_expression = 4
+  injected_python_expression = 4,
+  _line_percent = 5,
+  escaped_line_percent = 6
 };
 
 static bool scan_injected_html(TSLexer *lexer) {
@@ -15,7 +18,28 @@ static bool scan_injected_html(TSLexer *lexer) {
     if (any_chars) {
       lexer->mark_end(lexer);
     }
-    if (lexer->lookahead == '<') {
+    if (lexer->get_column(lexer) == 0 && (lexer->lookahead == '%' || iswblank(lexer->lookahead))) {
+      while (iswblank(lexer->lookahead)) {
+        lexer->advance(lexer, false);
+      }
+      if (lexer->lookahead == '%') {
+        printf("here1\n");
+        lexer->advance(lexer, false);
+	if (any_chars && (lexer->lookahead == '%' || iswblank(lexer->lookahead))) {
+          lexer->result_symbol = injected_html;
+	  return true;
+	} else if (lexer->lookahead == '%') {
+          lexer->result_symbol = escaped_line_percent;
+	  lexer->advance(lexer, false);
+	  lexer->mark_end(lexer);
+	  return true;
+	} else if (iswblank(lexer->lookahead)) {
+          lexer->result_symbol = _line_percent;
+	  lexer->mark_end(lexer);
+	  return true;
+	}
+      }
+    } else if (lexer->lookahead == '<') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '%') {
         return any_chars;
