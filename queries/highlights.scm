@@ -21,6 +21,8 @@
 ["</%include>" "</%inherit>" "</%namespace>" "</%text>" "</%doc>" 
  "</%page>" "</%block>" "</%def>" "</%call>"] @keyword.directive
 
+[">"] @keyword.directive
+
 ; Python control structures
 ["endif" "endfor"] @keyword.control
 
